@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block head%}
+<title>TaskTrek</title>
+{% endblock %}
+
+{% block body%} 
+<div class="content">
+    <h1>TaskTrek</h1>
+    {% if tasks | length<1 %}
+    <h3>Write It. Do It. Crush It!!!</h3>
+    {% else%}
+
+    <table>
+        <tr>
+            <th>
+                Tasks in Progress
+            </th>
+            <th>Added On</th>
+            <th>Mark & Modify</th>
+        </tr>
+        {% for  task in tasks%}
+        <tr>
+            <td>{{task.content}}</td>
+            <td>{{task.created.strftime("%d-%m-%y")}}</td>
+            <td> 
+                <a href="/delete/{{task.id}}">COMPLETED</a>
+                <br/>
+                <a href="/update/{{task.id}}">CHANGE</a>
+
+            </td>
+        </tr>
+        {% endfor%}
+    </table>
+    {% endif %}
+    <form action="/" method="POST">
+        <input type="text" name="content" id="content"/>
+        <input type="submit" value="New Task" id="btn_add"/>
+
+
+    </form>
+</div>
+{% endblock %}
